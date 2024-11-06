@@ -17,9 +17,9 @@ export default function AboutPage() {
           
           <div className="space-y-6 text-slate-700">
             <p>
-              Hi! I'm Miles Silveria, an aspiring Computer Systems professional with a strong background 
+              Hi! I am Miles Silveria, an aspiring Computer Systems professional with a strong background 
               in computer science, cybersecurity, and client-focused project management. With 3 years 
-              of hands-on experience, I’m skilled at adapting to fast-paced environments and committed 
+              of hands-on experience, I am skilled at adapting to fast-paced environments and committed 
               to leveraging technology for effective problem-solving.
             </p>
 
