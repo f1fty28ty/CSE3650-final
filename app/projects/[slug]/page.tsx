@@ -7,9 +7,19 @@ import { getRepoContents } from '@/lib/github';
 import { marked } from 'marked';
 import BackButton from '@/components/layout/BackButton';
 
+// Define the type for the contents
+interface RepoFile {
+  type: 'dir' | 'file'; // Adjust as necessary
+  name: string;
+  download_url?: string;
+  path?: string; // Added path property
+  html_url?: string; // Added html_url property
+  // Add other properties if needed
+}
+
 export default function ProjectDetail() {
   const { slug } = useParams();
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState<RepoFile[]>([]);
   const [readmeContent, setReadmeContent] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -19,18 +29,18 @@ export default function ProjectDetail() {
     if (project) {
       const fetchFilesAndReadme = async () => {
         setLoading(true);
-        const repoName = project.link.split('/').pop();
+        const repoName = project.link.split('/').pop()!;
         
         try {
-          const contents = await getRepoContents(repoName);
-          const sortedContents = contents.sort((a, b) => {
+          const contents: RepoFile[] = await getRepoContents(repoName);
+          const sortedContents = contents.sort((a: RepoFile, b: RepoFile) => {
             if (a.type === b.type) return a.name.localeCompare(b.name);
             return a.type === 'dir' ? -1 : 1;
           });
           setFiles(sortedContents);
 
           const readmeFile = contents.find((file) => file.name.toLowerCase() === "readme.md");
-          if (readmeFile) {
+          if (readmeFile && readmeFile.download_url) {
             const response = await fetch(readmeFile.download_url);
             const readmeText = await response.text();
             setReadmeContent(marked(readmeText));
