@@ -16,7 +16,7 @@ const nextConfig = {
   },
   assetPrefix,
   basePath,
-  trailingSlash: true, // Required for GitHub Pages compatibility
+  trailingSlash: true, // GitHub Pages compatibility
 };
 
 module.exports = nextConfig;
