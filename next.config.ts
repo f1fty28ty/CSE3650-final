@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
 
+// Define default values
 let assetPrefix = '';
 let basePath = '';
 
 if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, '');
+  // Extract the repository name from the GitHub repository environment variable
+  const repo = process.env.GITHUB_REPOSITORY?.split('/')[1];
   assetPrefix = `/${repo}/`;
   basePath = `/${repo}`;
 }
@@ -16,7 +18,7 @@ const nextConfig = {
   },
   assetPrefix,
   basePath,
-  trailingSlash: true, // GitHub Pages compatibility
+  trailingSlash: true, // Necessary for GitHub Pages
 };
 
 module.exports = nextConfig;
