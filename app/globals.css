@@ -2,44 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
+/* Global Styles */
 body {
-  overflow-x: hidden;
+  overflow-x: hidden; /* Use 'overflow-x-hidden' in the body class if preferred */
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+/* Animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .animate-blink {
   animation: blink 1s infinite;
 }
 
-.ease-in-out {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Snap Scrolling */
-.snap-container {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100vh;
-  scroll-behavior: smooth;
-}
-
-.snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
-.snap-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -55,17 +36,20 @@ html {
   animation: fadeIn 1s ease-out;
 }
 
-
-/* Container with stronger snapping */
+/* Scroll Snap */
 .snap-container {
   scroll-snap-type: y mandatory; /* 'y' for vertical snapping, 'mandatory' for stronger pull */
-  scroll-behavior: smooth;       /* Smooth scrolling */
+  scroll-behavior: smooth;
   overflow-y: scroll;
   height: 100vh;                 /* Full viewport height for each section */
 }
 
-/* Individual sections */
 .snap-section {
-  scroll-snap-align: start; /* Start aligns the top of each section to the top of the viewport */
-  height: 100vh;            /* Ensures each section takes up the full viewport height */
+  scroll-snap-align: start;      /* Aligns each section to the top of the viewport */
+  height: 100vh;
+}
+
+/* Hide Scrollbar for Chrome, Safari, Opera */
+.snap-container::-webkit-scrollbar {
+  display: none;
 }

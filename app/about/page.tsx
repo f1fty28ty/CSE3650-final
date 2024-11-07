@@ -1,5 +1,6 @@
 'use client';
 
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-neon-paleBlue p-8">

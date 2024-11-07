@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { projects } from '@/config/projects';
 
+
 export default function Home() {
   return (
     <div className="snap-container h-screen overflow-y-scroll">

@@ -8,19 +8,25 @@ export const metadata = {
   title: 'Causality Computing',
 };
 
-const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
+export default function RootLayout({ children }: PropsWithChildren<{}>) {
   return (
     <html lang="en">
       <head>
         <title>{metadata.title}</title>
+        <style>{`
+          /* Critical CSS here */
+          body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+          }
+          .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+          }
+        `}</style>
       </head>
-      <body>
-        <Layout>
-          {children}
-        </Layout>
-      </body>
+      <body>{children}</body>
     </html>
   );
-};
-
-export default RootLayout;
+}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { projects } from '@/config/projects';
 import BackButton from '@/components/layout/BackButton';
 
+
 export default function Home() {
   return (
     <div className="p-8 bg-neon-paleBlue min-h-screen">
