@@ -1,22 +1,28 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import HamburgerMenu from "../components/layout/HamburgerMenu";
+// app/layout.tsx
 
-const inter = Inter({ subsets: ["latin"] });
+import React, { PropsWithChildren } from 'react';
+import Layout from '../components/layout/layout'; // Import your consolidated layout component
+import './globals.css'; // Import global styles
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const metadata = {
+  title: 'Your Site Title',
+  description: 'Your site description',
+};
+
+const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-neon-paleBlue`}>
-        <HamburgerMenu />
-        <main className="min-h-screen">
+      <head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+      </head>
+      <body>
+        <Layout>
           {children}
-        </main>
+        </Layout>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
