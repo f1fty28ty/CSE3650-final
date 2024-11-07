@@ -82,8 +82,6 @@ export default function HamburgerMenu() {
                                group-hover:scale-x-100 transition-transform duration-200"></span>
               </Link>
             </li>
-            <li>
-            </li>
           </ul>
         </nav>
       </div>
