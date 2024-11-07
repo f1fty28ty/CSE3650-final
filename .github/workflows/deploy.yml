@@ -25,7 +25,23 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          publish_dir: ./out  # Directory containing the exported static files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Configure git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Initialize and switch to gh-pages branch
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.git
+          git fetch origin
+          git checkout -B gh-pages
+
+          # Copy the generated files from the output directory
+          cp -r out/* .
+
+          # Commit and push changes to gh-pages branch
+          git add .
+          git commit -m "Deploy to GitHub Pages"
+          git push -f origin gh-pages
