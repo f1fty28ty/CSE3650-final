@@ -5,8 +5,7 @@ import Layout from '../components/layout/layout'; // Import your consolidated la
 import './globals.css'; // Import global styles
 
 export const metadata = {
-  title: 'Your Site Title',
-  description: 'Your site description',
+  title: 'Causality Computing',
 };
 
 const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
@@ -14,7 +13,6 @@ const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
     <html lang="en">
       <head>
         <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
       </head>
       <body>
         <Layout>
