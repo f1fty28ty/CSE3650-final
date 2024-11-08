@@ -1,13 +1,11 @@
 {
-  "homepage": "https://f1fty28ty.github.io",
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "deploy": "gh-pages -d out"
+    "start": "next start"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",
