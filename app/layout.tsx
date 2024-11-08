@@ -26,7 +26,11 @@ export default function RootLayout({ children }: PropsWithChildren<{}>) {
           }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <Layout>
+          {children}
+        </Layout>
+      </body>
     </html>
   );
 }

@@ -14,6 +14,7 @@ export default function Home() {
           </h1>
           <p className="text-xl text-slate-700">
             visualize your thoughts
+            test
           </p>
         </div>
       </section>
