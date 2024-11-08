@@ -1,6 +1,6 @@
 export async function getRepoContents(repo: string, path: string = '') {
   try {
-    const username = process.env.GITHUB_USERNAME;
+    const username = "f1fty28ty";
     const response = await fetch(
       `https://api.github.com/repos/${username}/${repo}/contents/${path}`,
       {
@@ -32,7 +32,7 @@ export async function getRepoContents(repo: string, path: string = '') {
 
 export async function getRepos() {
   try {
-    const username = process.env.GITHUB_USERNAME;
+    const username = "f1fty28ty";
     const response = await fetch(
       `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
       {
