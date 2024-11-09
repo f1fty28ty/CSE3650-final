@@ -1,11 +1,10 @@
-// components/ProjectDetailClient.tsx
-"use client";
-
+"use client"
 import React from 'react';
 import { getRepoContents } from '@/lib/github';
-import { marked } from 'marked';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import BackButton from './layout/BackButton';
-
 
 interface RepoFile {
   type: 'dir' | 'file';
@@ -42,7 +41,7 @@ const ProjectDetailClient: React.FC<ProjectDetailClientProps> = ({ project }) =>
         if (readmeFile?.download_url) {
           const response = await fetch(readmeFile.download_url);
           const readmeText = await response.text();
-          setReadmeContent(await marked(readmeText));  // Ensure `marked` output is fully resolved
+          setReadmeContent(readmeText);
         }
       } catch (error) {
         console.error("Error fetching repo contents:", error);
@@ -72,7 +71,7 @@ const ProjectDetailClient: React.FC<ProjectDetailClientProps> = ({ project }) =>
         <h2 className="text-2xl font-semibold text-neon-hotPink mb-4">Repository Files</h2>
         <ul className="list-none space-y-2">
           {files.map((file) => (
-            <li key={file.path} className="flex items-center gap-2 text-slate-700">
+            <li key={`${file.type}-${file.name}`} className="flex items-center gap-2 text-slate-700">
               {file.type === 'dir' ? '📁' : '📄'}{' '}
               <a href={file.html_url} target="_blank" rel="noopener noreferrer" className="hover:underline text-lg">
                 {file.name}
@@ -83,13 +82,31 @@ const ProjectDetailClient: React.FC<ProjectDetailClientProps> = ({ project }) =>
       </div>
 
       {readmeContent && (
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 className="text-2xl font-semibold text-neon-hotPink mb-4">README</h2>
-        <div 
-        className="prose prose-custom max-w-none text-slate-700" 
-        dangerouslySetInnerHTML={{ __html: readmeContent }} 
-        />
-      </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-8 prose prose-custom max-w-none text-slate-700">
+          <h2 className="text-2xl font-semibold text-neon-hotPink mb-4">README</h2>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              code({ node, className, children, ...restProps }) {
+                const isInline = !className; // Determine if it's inline based on the absence of className
+                return isInline ? (
+                  <code className="bg-green-200 text-black px-1 rounded" {...restProps}>
+                    {children}
+                  </code>
+                ) : (
+                  <pre className="bg-green-100 p-4 rounded text-black overflow-x-auto">
+                    <code className={className}>
+                      {children}
+                    </code>
+                  </pre>
+                );
+              },
+            }}
+          >
+            {readmeContent}
+          </ReactMarkdown>
+        </div>
       )}
     </>
   );

@@ -61,7 +61,7 @@ html {
   --tw-prose-code: #02f93c; /* Green for inline code */
   --tw-prose-code-bg: #000000; /* Green for blockquote borders */
   --tw-prose-pre-code: #033637; /* Deep teal for preformatted code */
-  --tw-prose-pre-bg: #7ddbf5; /* Light teal for code block backgrounds */
+  --tw-prose-pre-bg: #000000; /* Light teal for code block backgrounds */
 }
 
 .prose-custom code {
