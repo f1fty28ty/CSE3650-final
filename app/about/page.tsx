@@ -41,7 +41,7 @@ export default function AboutPage() {
             <div className="mt-8">
               <h2 className="text-2xl font-semibold text-neon-hotPink mb-4">Education</h2>
               <p>
-                <span className="font-semibold">CSU San Bernardino</span> — BA in Computer Systems (Expected Jun 2024)
+                <span className="font-semibold">CSU San Bernardino</span> — BA in Computer Systems (Expected Jun 2026)
                 <br />
                 <span className="font-semibold">CU Boulder</span> — Coursework in Computer Science (Sep 2022 - Jun 2023)
                 <br />
