@@ -63,3 +63,20 @@ html {
   --tw-prose-pre-code: #033637; /* Deep teal for preformatted code */
   --tw-prose-pre-bg: #7ddbf5; /* Light teal for code block backgrounds */
 }
+
+.prose-custom code {
+  background-color: var(--tw-prose-code-bg);
+  color: var(--tw-prose-code);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+}
+
+.prose-custom pre {
+  background-color: var(--tw-prose-pre-bg);
+  color: var(--tw-prose-pre-code);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+}
