@@ -83,10 +83,13 @@ const ProjectDetailClient: React.FC<ProjectDetailClientProps> = ({ project }) =>
       </div>
 
       {readmeContent && (
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <h2 className="text-2xl font-semibold text-neon-hotPink mb-4">README</h2>
-          <div className="prose max-w-none text-slate-700" dangerouslySetInnerHTML={{ __html: readmeContent }} />
-        </div>
+      <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h2 className="text-2xl font-semibold text-neon-hotPink mb-4">README</h2>
+        <div 
+          className="prose prose-custom max-w-none text-slate-700" 
+          dangerouslySetInnerHTML={{ __html: readmeContent }}
+        />
+      </div>
       )}
     </>
   );

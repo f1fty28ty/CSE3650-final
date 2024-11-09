@@ -53,3 +53,12 @@ html {
 .snap-container::-webkit-scrollbar {
   display: none;
 }
+
+.prose-custom {
+  --tw-prose-headings: #ff69b4; /* Neon hot pink for headings */
+  --tw-prose-links: #1e90ff; /* Dodger blue for links */
+  --tw-prose-bullets: #4b5563; /* Slate gray for bullets */
+  --tw-prose-code: #16a34a; /* Green for inline code */
+  --tw-prose-pre-code: #ff4500; /* Orange red for preformatted code blocks */
+  --tw-prose-pre-bg: #f3f4f6; /* Light gray for code block backgrounds */
+}
