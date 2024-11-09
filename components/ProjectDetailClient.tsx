@@ -88,15 +88,28 @@ const ProjectDetailClient: React.FC<ProjectDetailClientProps> = ({ project }) =>
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
             components={{
-              code({ node, className, children, ...restProps }) {
-                const isInline = !className; // Determine if it's inline based on the absence of className
+              a({ href, children, ...props }) {
+                return (
+                  <a
+                    href={href}
+                    className="bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200"
+                    {...props}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                );
+              },
+              code({ node, className, children, ...props }) {
+                const isInline = !className;
                 return isInline ? (
-                  <code className="bg-green-200 text-black px-1 rounded" {...restProps}>
+                  <code className="bg-green-200 text-black px-1 rounded" {...props}>
                     {children}
                   </code>
                 ) : (
                   <pre className="bg-green-100 p-4 rounded text-black overflow-x-auto">
-                    <code className={className}>
+                    <code className={className} {...props}>
                       {children}
                     </code>
                   </pre>
