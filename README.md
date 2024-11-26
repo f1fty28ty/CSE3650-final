@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Getting Started
 
-## Getting Started
+## Run the Docker Container Locally
 
-First, run the development server:
+To build and run the application with Docker:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker-compose up --build -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying app/page.tsx. Changes will auto-update in development mode.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Kubernetes Deployment
 
-## Learn More
+### Setting Up Kubernetes Locally
 
-To learn more about Next.js, take a look at the following resources:
+1.	Install Dependencies:
+        •	Docker
+        •	Kind (Kubernetes in Docker):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+brew install kind
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+• kubectl:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+brew install kubectl
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+2.	Create a Kind Cluster:
+	•	Use the provided kind-conf.yaml:
+
+```bash
+kind create cluster --config kubernetes/kind-conf.yaml
+```
+
+3.	Build and Load Docker Image:
+	•	Build the Docker image locally:
+
+```bash
+docker build -t nextjs-app:local .
+```
+
+•	Load the image into the Kind cluster:
+
+```bash
+kind load docker-image nextjs-app:local --name nextjs-cluster
+```
+
+4.	Apply Kubernetes Manifests:
+	•	Use the provided manifests in the kubernetes directory:
+```bash
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+```
+
+5.	Access the Application:
+	•	The application will be available at http://localhost:30080.
+
+6.	Verify Pods and Services:
+•	Check running pods:
+```bash
+kubectl get pods
+```
+
+•	Check the service:
+```bash
+kubectl get services
+```
+## Traffic Monitoring with Wireshark
+
+### Setting Up Wireshark
+
+1.	Install Wireshark:
+•	On macOS:
+
+```bash
+brew install wireshark
+```
+
+•	On other platforms, download it from Wireshark’s website.
+
+	
+2.	Monitor Traffic:
+•	Open Wireshark and select the appropriate network interface:
+•	For traffic on localhost, use the lo0 interface (loopback).
+•	Apply a capture filter to monitor Kubernetes NodePort traffic:
+
+```plaintext
+tcp.port==30080
+```
+
+3.	Analyze Traffic:
+•	Run a load test using hey:
+
+```bash
+hey -z 30s -c 50 http://localhost:30080
+```
+
+•	Observe packets in Wireshark to confirm traffic distribution to Kubernetes pods.
+
+4.	Advanced Debugging:
+•	Use filters like:
+
+http
+
+
+•	Follow individual TCP streams:
+•	Right-click a packet → Follow → TCP Stream.
+
+Learn More
+
+To learn more about Next.js:
+	•	Next.js Documentation - learn about features and API.
+	•	Next.js GitHub Repository.
+
+To learn more about Kubernetes:
+	•	Kubernetes Documentation.
