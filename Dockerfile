@@ -1,18 +1,26 @@
-# Use the official Node.js image as a base
-FROM node:18-alpine
+# Use the official Node.js image
+FROM node:latest
+
+# Install pnpm globally
+RUN npm install -g pnpm
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
-COPY package*.json ./
-RUN npm install
+# Copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
 
-# Copy the application code
+# Install dependencies using pnpm
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the application code
 COPY . .
+
+# Build the application
+RUN pnpm run build
 
 # Expose port 3000
 EXPOSE 3000
 
-# Set the default command to start Next.js in development mode
-CMD ["npm", "run", "dev"]
+# Start the production server
+CMD ["pnpm", "run", "start"]

@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
-
-const nextConfig = {
-  trailingSlash: true,  // Ensures paths end with a slash for GitHub Pages compatibility
-  output: 'export',     
-  // for static export comment out any 'output:'
+const nextConfig: import("next").NextConfig = {
+  reactStrictMode: true,
+  webpack: (config, { isServer }) => {
+    try {
+      console.log(config);
+    } catch (error) {
+      console.error("Error serializing Webpack config:", error);
+    }
+    return config;
+  },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

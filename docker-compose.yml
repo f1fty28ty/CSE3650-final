@@ -10,5 +10,5 @@ services:
       - .:/app # Mounts the current directory to the /app directory in the container
       - /app/node_modules # Ensures node_modules are not overwritten
     environment:
-      - NODE_ENV=development
-    command: npm run dev
+      - NODE_ENV=production
+    command: pnpm run start
